@@ -18,7 +18,7 @@ In this six-part series, we will be investigating what it takes to get to `main
 
 ---
 
-To begin our investigation into how programs start, we will provide a summary of what happens in a program before `main`. The steps and responsibilities we describe are generalized so that they apply to _many_ systems. We will supplement the general theory in the following articles with an analysis of real-world implementations.
+To begin our investigation into how programs start, we will provide a summary of what happens in a program before `main`. The steps and responsibilities we describe are generalised so that they apply to _many_ systems. We will supplement the general theory in the following articles with an analysis of real-world implementations.
 
 **Table of Contents:**
 
@@ -53,7 +53,7 @@ Although much of this code is usually implemented by the C runtime, program star
 
 At a high level, the `_start` function handles:
 
-1. Early low-level initialization, such as:
+1. Early low-level initialisation, such as:
     1. Configuring processor registers
     2. Initializing external memory
     3. Enabling caches
@@ -96,7 +96,7 @@ _start:
     pushq %rdi
 
     # Prepare signals, memory allocation, stdio, etc.
-    call initialize_standard_library
+    call initialise_standard_library
 
     # Run the global constructors.
     call _init
@@ -114,7 +114,7 @@ _start:
     call exit
 ```
 
-Let’s dive in and see what happens during the runtime setup process (`initialize_standard_library` above).
+Let’s dive in and see what happens during the runtime setup process (`initialise_standard_library` above).
 
 ### Runtime Setup
 
@@ -127,21 +127,27 @@ C/C++ runtime setup is a universal [requirement](https://embeddedartistry.com/f
 
 Initializing global and static memory is broken down into two distinct steps that deserve additional details.
 
-First, the runtime initializes a subset of _uninitialized_ memory (no `=` in the declaration) to `0`. This includes global and static variables, but not stack variables. All uninitialized data that needs to be set to `0` is placed into the [`.bss`](https://en.wikipedia.org/wiki/.bss)section of the compiled program image by the linker. The location of the `.bss`section is identified during initialization, and the memory is typically set to `0` with `memset`.
+First, the runtime initialises a subset of _uninitialised_ memory (no `=` in the declaration) to `0`. This includes global and static variables, but not stack variables. All uninitialised data that needs to be set to `0` is placed into the [`.bss`](https://en.wikipedia.org/wiki/.bss)section of the compiled program image by the linker. The location of the `.bss`section is identified during initialization, and the memory is typically set to `0` with `memset`.
 
-Second, C++ global objects must be constructed before calling `main`. The linker places these constructors into the `.init`, `.init_array`, or `.ctors` section of the image. Some compilers also allow C and C++ functions to be marked as a constructor using a compiler attribute (e.g., `__attribute__((constuctor))`). The constructors are stored in a list by the linker. The runtime initialization process iterates through the list and calls each constructor.
+> [!info]- bss????
+> the **block starting symbol** (abbreviated to **.bss** or **bss**) is the portion of an [object file](https://en.wikipedia.org/wiki/Object_file "Object file"), executable, or [assembly language](https://en.wikipedia.org/wiki/Assembly_language "Assembly language") code that contains [statically allocated variables](https://en.wikipedia.org/wiki/Static_variable "Static variable") that are declared but have not been assigned a value yet. It is often referred to as the "bss section" or "bss segment".
+> Typically only the length of the bss section, but no data, is stored in the [object file](https://en.wikipedia.org/wiki/Object_file "Object file"). The [program loader](https://en.wikipedia.org/wiki/Program_loader "Program loader") allocates memory for the bss section when it loads the program. By placing variables with no value in the .bss section, instead of the [.data](https://en.wikipedia.org/wiki/Data_segment "Data segment") or .rodata section which require initial value data, the size of the object file is reduced.
+> ![[Pasted image 20231113184855.png]] *This shows the typical layout of a simple computer's program memory with the text, various data, and stack and heap sections.*
 
-These additional runtime initialization steps are run for many programs (but not all):
 
-1. Heap initialization
-2. Initialize `stdio` (i.e., `stdin`, `stdout`, `stderr`)
-3. Initialize exception support (if using C++)
+Second, C++ global objects must be constructed before calling `main`. The linker places these constructors into the `.init`, `.init_array`, or `.ctors` section of the image. Some compilers also allow C and C++ functions to be marked as a constructor using a compiler attribute (e.g., `__attribute__((constuctor))`). The constructors are stored in a list by the linker. The runtime initialisation process iterates through the list and calls each constructor.
+
+These additional runtime initialisation steps are run for many programs (but not all):
+
+1. Heap initialisation
+2. Initialise `stdio` (i.e., `stdin`, `stdout`, `stderr`)
+3. Initialise exception support (if using C++)
 4. Register destructors and other cleanup functions that will run when exiting the program (using `atexit` and `__cxa_atexit`)
 5. Prepare environment variables
 
-In practice, the line between the responsibilities of `_start` and the C runtime initialization can be fuzzy. Some implementations of `_start` handle pieces of the runtime setup directly, such as setting the `.bss` section contents to `0` and calling global constructors. Other implementations handle these tasks as part of the C runtime setup routines.
+In practice, the line between the responsibilities of `_start` and the C runtime initialisation can be fuzzy. Some implementations of `_start` handle pieces of the runtime setup directly, such as setting the `.bss` section contents to `0` and calling global constructors. Other implementations handle these tasks as part of the C runtime setup routines.
 
-Assembly files commonly found during this portion of the startup process are `crtbegin.s`, `crtend.s`, `crti.s`, and `crtn.s`. Compilers often ship pre-compiled object files for supported architectures. These files are related to calling global constructors and destructors. When the files are not used, equivalent functionality is often implemented in C and invoked during runtime initialization.
+Assembly files commonly found during this portion of the startup process are `crtbegin.s`, `crtend.s`, `crti.s`, and `crtn.s`. Compilers often ship pre-compiled object files for supported architectures. These files are related to calling global constructors and destructors. When the files are not used, equivalent functionality is often implemented in C and invoked during runtime initialisation.
 
 ### Other Scaffolding
 
@@ -159,7 +165,7 @@ The specific scaffolding functions invoked vary across standard library implemen
 
 ### Jumping to `main`
 
-Once we have a fully initialized system, we can safely jump to `main` and execute the programmer’s portion of the application.
+Once we have a fully initialised system, we can safely jump to `main` and execute the programmer’s portion of the application.
 
 The most important aspect: once the program reaches `main`, it must be in a standards-conforming state. Otherwise, the program’s assumptions will be invalidated.
 
@@ -185,9 +191,9 @@ There are three common paths:
 
 A baremetal embedded application represents the simplest path to `_start`.
 
-Consider a baremetal platform with a binary stored in flash memory. When power is applied to the processor, the processor will copy the program from flash and store it in RAM1. Once the program is loaded into memory, the processor jumps to the reset interrupt vector address.
+Consider a baremetal platform with a binary stored in flash memory. **When power is applied to the processor, the processor will copy the program from flash and store it in RAM1**. Once the program is loaded into memory, the processor jumps to the reset interrupt vector address. ^4b09de
 
-The embedded program’s reset interrupt handler initializes the system after power-on or reset. The reset handler typically performs an initial configuration of the processor registers and critical hardware components (such as external RAM, caches, or MMU). Once this initial configuration is complete, the reset handler jumps to `_start`.
+The embedded program’s reset interrupt handler initialises the system after power-on or reset. The reset handler typically performs an initial configuration of the processor registers and critical hardware components (such as external RAM, caches, or MMU). Once this initial configuration is complete, the reset handler jumps to `_start`.
 
 Some systems do not utilize the C standard library, and in that case `_start` will not be called. Instead, the reset handler will invoke other setup functions or will directly execute necessary program setup steps.
 
@@ -199,27 +205,27 @@ Many embedded applications are composed of multiple distinct images which run se
 
 Many systems use a bootloader or hypervisor, which runs before loading and executing the main application. Bootloaders perform a wide range of activities, including initializing system hardware, decryption, decompression, checking that a firmware image is valid before loading it, selecting a firmware image to boot, or determining whether to enter firmware update mode. Bootloader complexity depends on the system’s requirements; not of the listed tasks will be performed.
 
-Other systems require an incremental boot process, especially when the main application is larger than the processor’s internal RAM capacity. The first boot stage is typically a small image which fits into the processor’s internal memory. This image will initialize external RAM and load the main application from flash into the external RAM. The first stage boot may perform additional steps, such as processor vector remapping or MMU configuration. Once the main application is loaded, the first stage boot invokes the reset vector of the main application.
+Other systems require an incremental boot process, especially when the main application is larger than the processor’s internal RAM capacity. The first boot stage is typically a small image which fits into the processor’s internal memory. This image will initialise external RAM and load the main application from flash into the external RAM. The first stage boot may perform additional steps, such as processor vector remapping or MMU configuration. Once the main application is loaded, the first stage boot invokes the reset vector of the main application.
 
-Multi-stage boot scenarios complicate the program startup model. Each boot stage is technically a standalone program. However, not every stage will run through the full program startup process. Simple boot stages may only need to clear the `.bss` section to perform their duties, while complex bootloaders need a fully initialized C/C++ runtime. Program startup activities may be distributed across the boot process, with each stage handling specific tasks.
+Multi-stage boot scenarios complicate the program startup model. Each boot stage is technically a standalone program. However, not every stage will run through the full program startup process. Simple boot stages may only need to clear the `.bss` section to perform their duties, while complex bootloaders need a fully initialised C/C++ runtime. Program startup activities may be distributed across the boot process, with each stage handling specific tasks.
 
 ### OS Calls an `exec` function
 
 The most complex scenario is running a program on a host machine with a fully-fledged OS.
 
-When you launch a program, your shell or GUI invokes a program loader. The loader is responsible for copying the application image from the hard drive into memory and configuring the environment that the program will run in. On Linux or OS X, the loader is a function in the [`exec()`](http://pubs.opengroup.org/onlinepubs/009695399/functions/environ.html) family, typically [`execve()` or `execvp()`](http://pubs.opengroup.org/onlinepubs/009695399/functions/environ.html). For Windows, the loader is the `LdrInitializeThunk`function in `ntdll.dll`.
+When you launch a program, your shell or GUI invokes a program loader. The loader is responsible for copying the application image from the hard drive into memory and configuring the environment that the program will run in. On Linux or OS X, the loader is a function in the [`exec()`](http://pubs.opengroup.org/onlinepubs/009695399/functions/environ.html) family, typically [`execve()` or `execvp()`](http://pubs.opengroup.org/onlinepubs/009695399/functions/environ.html). For Windows, the loader is the `LdrInitialiseThunk`function in `ntdll.dll`.
 
 Loaders will often perform the following actions:
 
 - Check permissions
 - Allocate space for the program’s stack
 - Allocate space for the program’s heap
-- Initialize registers (e.g., stack pointer)
+- Initialise registers (e.g., stack pointer)
 - Push `argc`, `argv`, and `envp` onto the program stack
 - Map virtual address spaces
 - Dynamic linking
 - Relocations
-- Call pre-initialization functions
+- Call pre-initialisation functions
 
 Once the loader has configured the program environment, it calls the program’s `_start` function.
 
@@ -256,7 +262,7 @@ set backtrace past-main on
 - How Programs Get Run: ELF Binaries
 - [Executing main in C/C++: Behind the Scenes](https://www.geeksforgeeks.org/executing-main-in-c-behind-the-scene/)
 - [Linux x86 Program Start Up or How the heck do we get to main()?](http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html)
-- [The C Runtime Initialization, crt0.o](https://www.embecosm.com/appnotes/ean9/html/ch05s02.html)
+- [The C Runtime Initialisation, crt0.o](https://www.embecosm.com/appnotes/ean9/html/ch05s02.html)
 - [What Happens Before Main](https://www.bigmessowires.com/2015/10/02/what-happens-before-main/)
 - [OSDev Wiki: Creating a C Library](https://wiki.osdev.org/Creating_a_C_Library)
 - [OSDev Wiki: Calling Global Constructors](https://wiki.osdev.org/Calling_Global_Constructors)
