@@ -13,3 +13,4 @@ https://blog.mbedded.ninja/programming/languages/rust/running-rust-on-microcontr
 
 https://interrupt.memfault.com/tag/zero-to-main/
 
+http://www.delorie.com/djgpp/v2faq/faq8_22.html
