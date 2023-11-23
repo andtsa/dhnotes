@@ -1,0 +1,14 @@
+{
+	"nodes":[
+		{"id":"dfcfe315ebab3f0b","x":-125,"y":-27,"width":365,"height":187,"type":"text","text":"# On Boot\n`0x00000000`\n"},
+		{"id":"52a55be21d2885de","x":400,"y":320,"width":479,"height":153,"type":"text","text":"# Start Application"},
+		{"id":"1208443dac75197e","x":320,"y":-380,"width":476,"height":139,"type":"text","text":"# Check Flash CRC"},
+		{"id":"f8a34ae6fd015a58","x":297,"y":-652,"width":383,"height":92,"type":"text","text":"### Get header and CRC from NVM"},
+		{"id":"f58ec6cb4915c35f","x":740,"y":-606,"width":350,"height":90,"type":"text","text":"### Get application code from flash"},
+		{"id":"ba39b00555030ada","x":940,"y":455,"width":440,"height":145,"type":"text","text":"### Jump to app start"},
+		{"id":"889be8e21fe6ac5b","x":-760,"y":-311,"width":520,"height":140,"type":"text","text":"# Request New Binary"},
+		{"id":"89d60a8ca6115d5f","x":-1120,"y":20,"width":520,"height":567,"type":"text","text":"# Failures\nnon-functional / corrupt / application or decision path\n- watchdog reset (infinite loop)\n- HardFault\n- MemManage\n- BusFault\n- UsageFault\n- CRC failure\ncommunication\n- [insert all possible tcp failures]\n- could not find ground station\n\nother\n- there is no application\n\n"},
+		{"id":"b02a49155b7b0906","x":-512,"y":339,"width":532,"height":461,"type":"text","text":"# Jump back to bootloader\n- any type of failure\n- request new application\n- what are unsafe states?"}
+	],
+	"edges":[]
+}

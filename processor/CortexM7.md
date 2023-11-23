@@ -62,7 +62,18 @@ The CMSIS includes address definitions and data structures for the core peripher
 
 # Memory Model
 ![[Pasted image 20231009221950.png]]
-The memory map and programming the MPU splits the memory map into regions. Each region has a defined memory type, and some regions have additional memory attributes. The memory type and attributes determine the behavior of accesses to the region.
+> [!ai]- Memory Mapping
+> 1. **Code**: This region, starting at the base address `0x00000000`, is typically where the device's firmware or application code resides. The size indicated is 0.5 GB, which is unusually large for embedded systems like a Cortex-M7 processor and could be a simplification for illustrative purposes.
+> 2. **SRAM (Static Random-Access Memory)**: The next segment, starting at `0x20000000`, is where the processor's SRAM is mapped. SRAM is fast and volatile memory used for temporary data storage during program execution. Again, 0.5 GB is larger than typical SRAM sizes.
+> 3. **Peripheral**: Starting at `0x40000000`, this space is allocated for peripheral registers. Peripherals include components like timers, communication interfaces, and other hardware features. The size is given as 0.5 GB, which is a standard size for the peripheral address space in ARM Cortex processors.
+> 4. **External RAM**: This is designated for RAM that is external to the microcontroller, starting at `0x60000000`. For systems that require more memory than is available on-chip, external RAM can be interfaced. The diagram shows a size of 1.0 GB.
+> 5. **External Device**: Memory mapped at `0xA0000000` is usually for devices such as external flash or other memory devices that are not RAM. This allows the microcontroller to interact with external components as if they were memory within the system. The size here is 1.0 GB.
+> 6. **Private Peripheral Bus**: At `0xE0000000`, this region is reserved for private peripherals that are not accessible by a regular peripheral access, such as the Nested Vectored Interrupt Controller (NVIC), System Timer (SysTick), and vendor-specific configuration areas. This area is shown as 1.0 MB, which is consistent with the typical size for this region.
+> 7. **Vendor-specific Memory**: The top of the memory map, starting at `0xE0100000`, is often left for vendor-specific uses, such as proprietary hardware functions or additional memory regions. It's indicated as 511 MB, which suggests that it's just under the peripheral bus space, ending at the topmost address `0xFFFFFFFF`.
+> 
+> Memory mapping is critical for the operation of microcontrollers, defining how the software interacts with the hardware and memory. It's important to note that the actual memory sizes in a real Cortex-M7 processor would be much smaller, usually in the order of kilobytes to megabytes for SRAM and tens to hundreds of kilobytes for flash memory. The sizes in this diagram are not typical for such embedded systems and are likely used for illustrative purposes or are part of a high-level simulation environment.
+
+The memory map and programming the MPU splits the memory map into regions. Each region has a defined memory type, and some regions have additional memory attributes. The memory type and attributes determine the behaviour of accesses to the region.
 
 **Normal:** 
 The processor can re-order transactions for efficiency, or perform speculative reads.
