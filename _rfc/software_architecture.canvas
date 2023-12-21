@@ -1,0 +1,24 @@
+{
+	"nodes":[
+		{"id":"f9afdf6d172a61bc","type":"text","text":"<h1 style=\"text-align: center\">Main PCB Software</h1>","x":-324,"y":-120,"width":2684,"height":80},
+		{"id":"d1f3850714d5f8c1","type":"text","text":"<h2 style=\"text-align: center\">Main Application≡FSM</h2>","x":-100,"y":0,"width":2460,"height":80},
+		{"id":"9ccf2dcf8e02667b","type":"text","text":"<h2 style=\"text-align: center\">Bootloader</h2>","x":-324,"y":0,"width":204,"height":80},
+		{"id":"ffb71627b3c1dadf","type":"text","text":"<h3 style=\"text-align: center\">State Managing</h3>","x":-100,"y":120,"width":1460,"height":80},
+		{"id":"b8d1abb8f765250b","type":"file","file":"images/IMG_2269805DC2D4-1.jpeg","x":-324,"y":120,"width":204,"height":80},
+		{"id":"dd3f5f18fa695224","type":"text","text":"<h3 style=\"text-align: center\">Communication Listeners</h3>","x":1400,"y":120,"width":960,"height":80},
+		{"id":"8d38059d311e7b49","type":"text","text":"#### Listen to CAN","x":2100,"y":240,"width":260,"height":80},
+		{"id":"3e9981e64cd92d67","type":"text","text":"##### Bus 2","x":2240,"y":360,"width":120,"height":80},
+		{"id":"f69656bdddf5729e","type":"text","text":"##### Bus 1","x":2100,"y":360,"width":120,"height":80},
+		{"id":"73da512ed36bf45a","type":"text","text":"#### Listen to Ethernet","x":1400,"y":240,"width":280,"height":80},
+		{"id":"a9cae5f8680e5867","type":"text","text":"#### Listen to GPIO (??)","x":1720,"y":240,"width":340,"height":80},
+		{"id":"b8fec53c38b8ac3d","type":"text","text":"#### React to Events","x":720,"y":240,"width":640,"height":80},
+		{"id":"7245e805f0306ff9","type":"text","text":"#### Event sources:\n- Ground Station\n- Propulsion\n- Powertrain\n- Levi\n- Braking\n- Thermal\n- Localisation","x":720,"y":360,"width":640,"height":400},
+		{"id":"138ce3aa0bc2aa18","type":"text","text":"#### Current State Actions","x":260,"y":240,"width":420,"height":80},
+		{"id":"e986f635526bc199","type":"text","text":"#### Global Actions","x":-100,"y":240,"width":320,"height":80},
+		{"id":"38cba23775834f3f","type":"text","text":"#### \n- Pet watchdog\n- log stuff to SD card","x":-100,"y":360,"width":320,"height":400},
+		{"id":"a5a4901270fff3c9","type":"text","text":"some powertrain shenanigans happening here i think","x":1900,"y":360,"width":160,"height":240},
+		{"id":"75fc7530ef59eafa","type":"text","text":"**I2C**\n1x pressure sensor\n1x temperature sensor\nSCL-AS (Pin 81: ?): Serial Clock line for I2C communicationSDA-AS (Pin 82: ?): Serial Data line for I2C communication","x":1720,"y":360,"width":160,"height":240},
+		{"id":"8707de492c10f325","type":"text","text":"powertrain\n\n- one to turn on the batteriez\n- one to turn on the HVPDB\n- one to turn on the charging system of HV\n- one to turn on the chargingg systme of LV\n- one we must READ to know whether or not the HV is on\n- (12V unused by software/unusable by mcu) state of ground fault detection\n\t- we actually know state of gound fault dtection thoruh CAN\n","x":1810,"y":1080,"width":1030,"height":560}
+	],
+	"edges":[]
+}

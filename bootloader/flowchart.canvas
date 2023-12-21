@@ -1,0 +1,27 @@
+{
+	"nodes":[
+		{"id":"6190eb4650ccc704","type":"text","text":"GS Sends `LOAD`","x":-485,"y":519,"width":250,"height":60},
+		{"id":"a2a499bbac6dfad2","type":"text","text":"write program to flash","x":-440,"y":831,"width":240,"height":60},
+		{"id":"7b6502c49546e4f5","type":"text","text":"**Connected**\nwait for message, pet watchdog","x":-100,"y":340,"width":204,"height":100},
+		{"id":"a32b3be3e241ee9e","type":"text","text":"bootloader receives binary","x":-485,"y":677,"width":273,"height":54},
+		{"id":"99ba1af447ac4c5c","type":"text","text":"check application in flash against CRC and header ","x":251,"y":657,"width":268,"height":74},
+		{"id":"c48f50b85516c946","type":"text","text":"GS Sends `START`","x":269,"y":489,"width":250,"height":60},
+		{"id":"459853b4e596a248","type":"text","text":"Disconnected → Try to connect to GS\n`main pcb is blinking`","x":159,"y":187,"width":250,"height":120},
+		{"id":"afb0aa4db6a48b4d","type":"text","text":"# On Boot\n`%rip = 0x00000000`\nWhen the MCU receives power after being off, the instruction pointer points here.","x":-460,"y":120,"width":402,"height":187},
+		{"id":"e99b2414938062ad","type":"text","text":"Bootloader requests new binary\nerror in GS","x":-87,"y":860,"width":356,"height":100},
+		{"id":"f371029c684e62e8","type":"text","text":"Jump to application start","x":251,"y":935,"width":257,"height":50}
+	],
+	"edges":[
+		{"id":"275c00f79780c3f5","fromNode":"afb0aa4db6a48b4d","fromSide":"right","toNode":"459853b4e596a248","toSide":"left"},
+		{"id":"aaa2c7f5b3e34fde","fromNode":"7b6502c49546e4f5","fromSide":"bottom","toNode":"c48f50b85516c946","toSide":"top"},
+		{"id":"4c55f47bcae7cc58","fromNode":"7b6502c49546e4f5","fromSide":"bottom","toNode":"6190eb4650ccc704","toSide":"top"},
+		{"id":"078c3faacd64fdd4","fromNode":"c48f50b85516c946","fromSide":"bottom","toNode":"99ba1af447ac4c5c","toSide":"top"},
+		{"id":"c124b73d81a25725","fromNode":"99ba1af447ac4c5c","fromSide":"bottom","toNode":"f371029c684e62e8","toSide":"top","label":"app ok"},
+		{"id":"bbe23a357bd28aad","fromNode":"99ba1af447ac4c5c","fromSide":"bottom","toNode":"e99b2414938062ad","toSide":"top","label":"error"},
+		{"id":"5ae0c467d5c5c9ac","fromNode":"6190eb4650ccc704","fromSide":"bottom","toNode":"a32b3be3e241ee9e","toSide":"top"},
+		{"id":"83624a217f7ee065","fromNode":"459853b4e596a248","fromSide":"bottom","toNode":"7b6502c49546e4f5","toSide":"right"},
+		{"id":"ad11e81ae14b0f8e","fromNode":"e99b2414938062ad","fromSide":"left","toNode":"7b6502c49546e4f5","toSide":"bottom"},
+		{"id":"9d0ac9d5160544b6","fromNode":"a2a499bbac6dfad2","fromSide":"right","toNode":"99ba1af447ac4c5c","toSide":"left"},
+		{"id":"92cc27533ea9ca42","fromNode":"a32b3be3e241ee9e","fromSide":"bottom","toNode":"a2a499bbac6dfad2","toSide":"top"}
+	]
+}

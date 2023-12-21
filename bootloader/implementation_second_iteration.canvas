@@ -1,0 +1,6 @@
+{
+	"nodes":[
+		{"id":"99a04bcf68d3d5bf","type":"text","text":"# On Boot\n`%rip = 0x00000000`\nincrement restart counter in NVM","x":-182,"y":-93,"width":365,"height":187}
+	],
+	"edges":[]
+}

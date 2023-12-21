@@ -1,0 +1,23 @@
+{
+	"nodes":[
+		{"id":"a8c76b363996bc2b","type":"text","text":"<h1 style=\"text-align: center\">Main PCB Software</h1>","x":-1342,"y":-440,"width":1922,"height":80},
+		{"id":"d798bb7fa57f0fd6","type":"text","text":"<h2 style=\"text-align: center\">Main Application≡FSM</h2>","x":-1118,"y":-320,"width":1698,"height":80},
+		{"id":"b9ed584aaaa88d3f","type":"text","text":"<h2 style=\"text-align: center\">Bootloader</h2>","x":-1342,"y":-320,"width":204,"height":80},
+		{"id":"5193e4eabf39dbe7","type":"text","text":"<h3 style=\"text-align: center\">State Managing</h3>","x":-1118,"y":-200,"width":898,"height":80},
+		{"id":"144895650651eae0","type":"text","text":"#### Global Actions","x":-1118,"y":-80,"width":218,"height":80},
+		{"id":"f86c42cf01d35ac2","type":"text","text":"#### \n- Pet Watchdog\n- SD Card logging\n- ...","x":-1118,"y":40,"width":218,"height":300},
+		{"id":"8c5054d80a3e7bbe","type":"text","text":"#### Current State Actions","x":-860,"y":-80,"width":300,"height":80},
+		{"id":"f269aa0ec6096444","type":"text","text":"#### React to Events","x":-528,"y":-80,"width":308,"height":80},
+		{"id":"9583ff191c884bab","type":"text","text":"#### Event sources:\n- Ground Station\n- Propulsion\n- Powertrain\n- Levi\n- Braking\n- Thermal\n- Localisation","x":-528,"y":40,"width":308,"height":300},
+		{"id":"7fc016c22cc47b9b","type":"text","text":"#### Listen to Ethernet","x":-180,"y":-80,"width":248,"height":80},
+		{"id":"cace036a2d7e6afa","type":"text","text":"<h3 style=\"text-align: center\">Communication Listeners</h3>","x":-180,"y":-200,"width":760,"height":80},
+		{"id":"76f5e5301b6e87f2","type":"text","text":"#### Listen to GPIO","x":112,"y":-80,"width":208,"height":80},
+		{"id":"9bec5bcecb416add","type":"text","text":"#### Listen to CAN","x":360,"y":-80,"width":220,"height":80},
+		{"id":"b1af07345a9fc27f","type":"text","text":"##### Bus 1","x":360,"y":40,"width":100,"height":80},
+		{"id":"89d2afc1155cc560","type":"text","text":"##### Bus 2","x":480,"y":40,"width":100,"height":80},
+		{"id":"d3c641c486d83f65","type":"text","text":"out:\n→ batteries\n→ HV PDB\n→ HV charging\n→ LV charging\nin:\n→ HV PDB status","x":112,"y":40,"width":208,"height":240},
+		{"id":"6b5ed44b6db0b386","type":"text","text":"#     [...]","x":-1342,"y":-200,"width":204,"height":80},
+		{"id":"69935c237f5c4b48","type":"text","text":"inter 2 11 p\n\nDSLC \n","x":-1009,"y":600,"width":409,"height":220}
+	],
+	"edges":[]
+}
