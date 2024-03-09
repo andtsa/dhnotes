@@ -1,0 +1,17 @@
+{
+	"nodes":[
+		{"id":"c29a482c0828ca80","x":-580,"y":-60,"width":260,"height":280,"type":"group","label":"Legend"},
+		{"id":"65a8f310a6175356","type":"text","text":"**Communicaton and data transfer**","x":-560,"y":60,"width":220,"height":140,"color":"#e1c823"},
+		{"id":"8449b2c3d7a91bae","x":-560,"y":-40,"width":220,"height":80,"color":"#c026a3","type":"text","text":"**Commands to levi drives**"},
+		{"id":"d8bd45b713fb3def","type":"text","text":"<h1 style=\"text-align:center; margin-top: 50%; transform: translateY(-40%)\">Ground Station</h1>","x":-580,"y":-360,"width":220,"height":220,"color":"#61c74d"},
+		{"id":"e3ef922b865df940","type":"text","text":"<h1 style=\"text-align:center; margin-top: 50%; transform: translateY(-40%)\">Levi Drives</h1>","x":-220,"y":-360,"width":220,"height":220,"color":"#d24bb9"},
+		{"id":"ed522fae37927a84","type":"text","text":"<h1 style=\"text-align:center; margin-top: 50%; transform: translateY(-40%)\">Main PCB</h1>","x":120,"y":-360,"width":220,"height":220,"color":"#4d51c7"},
+		{"id":"4dadc54f264e9ff3","x":-220,"y":-20,"width":220,"height":220,"color":"1","type":"text","text":"<h1 style=\"text-align:center; margin-top: 50%; transform: translateY(-40%)\">Internet Router</h1>"}
+	],
+	"edges":[
+		{"id":"279fee350b73f6bf","fromNode":"ed522fae37927a84","fromSide":"bottom","toNode":"4dadc54f264e9ff3","toSide":"right","color":"#d24bb9"},
+		{"id":"d26aa4a19d8b7daf","fromNode":"4dadc54f264e9ff3","fromSide":"top","toNode":"e3ef922b865df940","toSide":"bottom","color":"#d24bb9"},
+		{"id":"6a6eae620e3154b9","fromNode":"ed522fae37927a84","fromSide":"left","toNode":"4dadc54f264e9ff3","toSide":"right","fromEnd":"arrow","color":"#e1c823"},
+		{"id":"892f359beb95b5d9","fromNode":"4dadc54f264e9ff3","fromSide":"left","toNode":"d8bd45b713fb3def","toSide":"right","fromEnd":"arrow","color":"#e1c823"}
+	]
+}
