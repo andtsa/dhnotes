@@ -1,0 +1,20 @@
+{
+	"nodes":[
+		{"id":"5e5f0ad9e9872af1","type":"text","text":"# Boot State\nsafety: approach with caution because we don't know anything we can't see\n- [ ] CAN task spawned\n- [ ] braking task spawned\n- [ ] tcp task spawned\n- [ ] FSM Peripherals initialised","x":-120,"y":-280,"width":440,"height":400,"color":"5"},
+		{"id":"3cab8415ac0033fb","type":"text","text":"PCB Powered On","x":-55,"y":-460,"width":250,"height":60},
+		{"id":"0a526ff27ad665d0","type":"text","text":"# Establish Connection\nsafety: approach with caution because we don't know anything we can't see\n- [ ] socket to ground station worked","x":960,"y":-280,"width":440,"height":400,"color":"5"},
+		{"id":"5daaabb07501fbf9","type":"text","text":"# Run Config\nsafety: pod is safe to approach\n- [ ] Receiving data from hub\n- [ ] receiving data from propulsion\n- [ ] levi software started\n- [ ] levi sent arcas connected\n- [ ] all temperature within thresholds*\n- [ ] all pressure within thresholds\n- [ ] brake pressure sufficient\n- [ ] brakes armed (retracted)","x":960,"y":320,"width":440,"height":560,"color":"4"},
+		{"id":"e9d01a3cae88cca8","type":"text","text":"# Idle\nsafety: brakes are retracted and could deploy at any point, approach with caution.\n\n- [ ] all temperature sensors within thresholds\n- [ ] all pressure sensors within thresholds\n- [ ] all voltage & current sensors within thresholds\n- [ ] communication with LV BMS is ok\n- [ ] communication with HV BMS is ok (send query + receive ack)","x":-120,"y":320,"width":440,"height":560,"color":"2"},
+		{"id":"f5898ddc21ed30a5","type":"text","text":"# HV System Checking\nsafety: assume pod is at 400 Volts, and brakes could extend at any point. Approach pod wearing high-voltage gloves, warn others not to approach, don't touch the pod at all.\n\n- [ ] HV BMS gives voltage readings within thresholds, indicating that HV is actually turned on\n- [ ] Temperature, voltage, pressure readings within thresholds\n- [ ] Levi gets correct current and voltage readings, indicating they are ready to start levitating","x":-120,"y":1160,"width":440,"height":600,"color":"1"},
+		{"id":"77e0cd89cde55bca","x":960,"y":1160,"width":440,"height":600,"color":"1","type":"text","text":"# Levitating\nsafety: only approach while wearing high-voltage gloves.\n\n- [ ] Levi software confirmation that they're levitating"}
+	],
+	"edges":[
+		{"id":"117262d25f3d9d2b","fromNode":"3cab8415ac0033fb","fromSide":"bottom","toNode":"5e5f0ad9e9872af1","toSide":"top"},
+		{"id":"bacb94028ffcc9fa","fromNode":"5e5f0ad9e9872af1","fromSide":"right","toNode":"0a526ff27ad665d0","toSide":"left","label":"all tasks completed \n(check them when each event is received)"},
+		{"id":"3096fca166e13ab5","fromNode":"0a526ff27ad665d0","fromSide":"bottom","toNode":"5daaabb07501fbf9","toSide":"top","label":"connection message written successfully"},
+		{"id":"27f77bc67fee6daf","fromNode":"5daaabb07501fbf9","fromSide":"left","toNode":"e9d01a3cae88cca8","toSide":"right","label":"RunConfigComplete event received"},
+		{"id":"ff83bfc554bb7c28","fromNode":"e9d01a3cae88cca8","fromSide":"bottom","toNode":"f5898ddc21ed30a5","toSide":"top","label":"TurnOnHVCommand \n(+ ~15 delay)"},
+		{"id":"8d70515efa59fdb5","fromNode":"f5898ddc21ed30a5","fromSide":"left","toNode":"e9d01a3cae88cca8","toSide":"left","label":"TurnOffHVCommand\n(no prerequisites)"},
+		{"id":"5c5fbb7dc8a04d19","fromNode":"f5898ddc21ed30a5","fromSide":"right","toNode":"77e0cd89cde55bca","toSide":"left","label":"Levitate command\n(sent to both levi software and pod)"}
+	]
+}

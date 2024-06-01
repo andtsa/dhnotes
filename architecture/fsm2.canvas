@@ -1,0 +1,15 @@
+{
+	"nodes":[
+		{"id":"7c0b4c21c679c85b","type":"text","text":"# RUN CONF","x":-240,"y":200,"width":250,"height":60},
+		{"id":"6def53672053dc36","type":"text","text":"# L-CON","x":-240,"y":-80,"width":250,"height":60},
+		{"id":"160277aa7cc5f0c0","type":"text","text":"# BOOT","x":-240,"y":-360,"width":250,"height":60},
+		{"id":"4df1e675566cba5e","type":"text","text":"# IDLE","x":1000,"y":200,"width":250,"height":60},
+		{"id":"f3db4f40af745529","type":"text","text":"# HV Syscheck","x":1000,"y":640,"width":280,"height":160}
+	],
+	"edges":[
+		{"id":"30576628989f2117","fromNode":"160277aa7cc5f0c0","fromSide":"bottom","toNode":"6def53672053dc36","toSide":"top","label":"SPAWN ALL TASKS"},
+		{"id":"43da2df01db73ca8","fromNode":"6def53672053dc36","fromSide":"bottom","toNode":"7c0b4c21c679c85b","toSide":"top","label":"REC ACK FROM GS"},
+		{"id":"131e714e0456494e","fromNode":"7c0b4c21c679c85b","fromSide":"right","toNode":"4df1e675566cba5e","toSide":"left","color":"1","label":"- run conf + receive complete\n- receive data from hub\n- each temp within threshold\n- each pressure within threshold (also checks that breaks are pressurized)\n- levi software started\n- levi software connected to arcas\n- prop drives alive"},
+		{"id":"c15c18f3494bc2ce","fromNode":"4df1e675566cba5e","fromSide":"bottom","toNode":"f3db4f40af745529","toSide":"top"}
+	]
+}
