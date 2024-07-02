@@ -25,3 +25,12 @@
 
 ### Performance Monitoring
 
+
+# Executor in `async`
+
+in rust, the `async` keyword is a macro that changes the return type of a function from `<T>` to `<Future<T>>`. Rust `core` has the `Future`, `Task`, etc traits in it, but a future needs to be `poll()`-ed in order to do something. This job needs to be done by an *executor*. The traits allow crates to hook into the `async-await` functionality. There are two main executors for async in a rust-std environment: `tokio` and `async-std`. Using those _is_ the de facto standard, and should be viewed similarly to using the standard library.
+
+In embedded, `tokio` and `async-std` obviously don't work. In `dh08/helios_iii` we use the embassy executor. it behaves in more or less the same way.
+
+in order to get a better understanding of what executors actually do, please look at https://github.com/richardanaya/executor/blob/master/src/lib.rs
+
